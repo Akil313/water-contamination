@@ -1,0 +1,23 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Full Report</ion-title>
+  </ion-navbar>
+  
+</ion-header>
+<ion-content>
+  <ion-list>
+      <span *ngFor="let k of temp| async">
+	  <button ion-item block  (click)="openNavDetailsPage(item)" icon-start style="text-align:center">
+	  <p>{{ k.Date }}</p>
+      <div style="font-size: 14px">
+        <h2>Location: <strong>{{ k.Location }}</strong></h2>
+        <h2>Contamination Level: <strong>{{ k.Contamination }}</strong></h2>
+        <br>
+      </div>
+      <p>tap for more details</p>
+	  </button>
+	  </span>
+  </ion-list>
+</ion-content>
+

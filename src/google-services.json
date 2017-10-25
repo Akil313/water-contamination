@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "886793828530",
+    "firebase_url": "https://water-contamination.firebaseio.com",
+    "project_id": "water-contamination",
+    "storage_bucket": "water-contamination.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:886793828530:android:3e089f08035ad21d",
+        "android_client_info": {
+          "package_name": "com.Ionic3GoogleMaps.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "886793828530-dir31bvrrdc11fe6qimg547hlre9575m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4DNLLCLapo_T4gmxDxSur36kjIdemByU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

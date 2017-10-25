@@ -1,0 +1,29 @@
+page-map {
+  #map {
+    height: 100%;
+  }
+  
+  div #map{
+	backgroundColor:'red';
+}
+}	
+
+
+
+.ios, .md {
+ 
+  home-page {
+ 
+    .scroll-content {
+      height: 100%
+    }
+ 
+    #map {
+		backgroundColor:red;
+      width: 100%;
+      height: 100%;
+    }
+ 
+  }
+ 
+}
