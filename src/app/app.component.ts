@@ -23,59 +23,40 @@ export class MyApp {
   constructor(platform: Platform, afAuth: AngularFireAuth, private splashScreen: SplashScreen,public afd: AngularFireDatabase, 
     private statusBar: StatusBar) {
     const authObserver = afAuth.authState.subscribe( user => {
-    console.log(user);
+      console.log(user);
       if (user) {
-    var temp1 = user.email.toString();
-    var email="";
-    var i;
-    for(i of temp1){
-      if(i == "."){
-        break;
-      }else{
-        email+=i;
+        var userId=user.uid;
+        var userLoc="Users/"+userId;
+        console.log(userLoc);
+        this.meh = this.afd.list(userLoc).valueChanges();
+        this.meh = this.afd.list(userLoc).valueChanges().map(p =>{
+          console.log(p[2], "email?");
+          if(p[1] == true){
+            globalVar=true;
+            this.rootPage = EmployeePage;
+            authObserver.unsubscribe();
+          }
+          else if(p[1] == false){
+            this.rootPage = CustomerPage;
+            authObserver.unsubscribe();
+          }
+          console.log(globalVar,"global");
+          console.log(p);
+          /*if(p[1]== true){
+          console.log("YESSSSSSSSSSS!");
+          this.navCtrl.setRoot('EmployeePage');
+          }else{
+          this.navCtrl.setRoot('CustomerPage');
+          }*/
+          return p;
+        });
       }
-    }
-    var str="Users/";
-    console.log(str+email);
-    this.meh = this.afd.list(str+email).valueChanges();
-    this.meh = this.afd.list(str+email).valueChanges().map(p =>{
-      console.log("hey");
-    var name="name:";
-    var admin = "admin";
-    console.log(p[2], "email?");
-    for(var i=0;i<p.length;i++){
-      if((p[2] == email) && (p[1] == true)){
-        console.log("global");
-        this.globalVar=true;
-        console.log(this.globalVar,"global");
-        this.rootPage = EmployeePage;
-        authObserver.unsubscribe();
-        break;
-      }else if((p[2] == email) && (p[1] == false)){
-        console.log("global");
-        console.log(this.globalVar,"global");
-        this.rootPage = CustomerPage;
-        authObserver.unsubscribe();
-        break;
-        
-      }
-    }
-    console.log(p);
-    /*if(p[1]== true){
-      console.log("YESSSSSSSSSSS!");
-      this.navCtrl.setRoot('EmployeePage');
-    }else{
-      this.navCtrl.setRoot('CustomerPage');
-    }*/
-    return p;
-  });
-      } else {
+      else {
         this.rootPage = 'LoginPage';
         authObserver.unsubscribe();
       }
     });
-  console.log(this.globalVar,"it works?");
-
+    console.log(globalVar,"it works?");
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
