@@ -17,18 +17,18 @@ export class SummaryPage {
 	@ViewChild('barCanvas') barCanvas;
 	lineChart: any;
 	barChart: any;
-	public  temp: Observable<any>;
+	public temp: Observable<any>;
 
 	constructor(public navCtrl: NavController, public afd: AngularFireDatabase,public afAuth: AngularFireAuth) {
 
 	}
 
 	ionViewDidLoad() {
-		
 		this.afAuth.authState.subscribe((user: firebase.User) => {
 			var userId=user.uid;
-			var dataLoc="user/"+userId+"/report";
+			var dataLoc="user/"+userId+"/report";			
 			this.temp = this.afd.object(dataLoc).valueChanges().map(j =>{
+				console.log(j);
 				var arr = [];
 				var data_arr = [];
 				for(var k=1; k<Object.keys(j).length; k++){
@@ -41,7 +41,7 @@ export class SummaryPage {
 						break;
 					}
 				}
-				console.log(data_arr,"array");
+				
 				Chart.defaults.global.legend.display = false;
 				this.lineChart = new Chart(this.lineCanvas.nativeElement, {
 
@@ -50,7 +50,6 @@ export class SummaryPage {
 						labels: arr,
 						datasets: [
 						{
-							label: "Contamination Level",
 							display:false,
 							fill: false,
 							lineTension: 0.1,
@@ -117,10 +116,7 @@ export class SummaryPage {
 					else
 						monthData[i]=0;
 				}
-
-				console.log(monthData);
-				console.log(monthAmt);
-
+				
 				var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 				this.barChart = new Chart(this.barCanvas.nativeElement, {

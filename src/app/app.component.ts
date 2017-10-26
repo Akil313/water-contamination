@@ -19,15 +19,12 @@ export class MyApp {
   rootPage:any;
   public  meh: Observable<any[]>;
 
-  constructor(platform: Platform, afAuth: AngularFireAuth, private splashScreen: SplashScreen,public afd: AngularFireDatabase, 
-    private statusBar: StatusBar) {
+  constructor(platform: Platform, afAuth: AngularFireAuth, private splashScreen: SplashScreen,public afd: AngularFireDatabase, private statusBar: StatusBar) {
     afAuth.authState.subscribe( user => {
-      console.log(user);
       if (user) {
         var userId = user.uid;
         var userLoc = "user/"+userId;
         this.meh = this.afd.list(userLoc).valueChanges().map(p =>{
-          console.log(p);
           if(p[0] == true){
             globalVar=true;
             this.rootPage = EmployeePage;
@@ -42,13 +39,12 @@ export class MyApp {
         this.rootPage = 'LoginPage';
       }
     });
-    console.log(globalVar,"it works?");
 
     platform.ready().then(() => {
-    // Okay, so the platform is ready and our plugins are available.
-    // Here you can do any higher level native things you might need.
-    statusBar.styleDefault();
-    splashScreen.hide();
-  });
-}
+      // Okay, so the platform is ready and our plugins are available.
+      // Here you can do any higher level native things you might need.
+      statusBar.styleDefault();
+      splashScreen.hide();
+    });
+  }
 }
