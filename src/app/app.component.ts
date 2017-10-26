@@ -1,4 +1,4 @@
-declare var userType: any;
+var globalVar=false;
 
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
@@ -18,7 +18,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class MyApp {
   rootPage:any;
   public  meh: Observable<any[]>;
-  public globalVar=false;
 
   constructor(platform: Platform, afAuth: AngularFireAuth, private splashScreen: SplashScreen,public afd: AngularFireDatabase, 
     private statusBar: StatusBar) {
