@@ -14,7 +14,9 @@ import { Subscription } from 'rxjs/Subscription';
 export class SummaryPage {
 
 	@ViewChild('lineCanvas') lineCanvas;
+	@ViewChild('barCanvas') barCanvas;
 	lineChart: any;
+	barChart: any;
 	public  temp: Observable<any>;
 
 	constructor(public navCtrl: NavController, public afd: AngularFireDatabase,public afAuth: AngularFireAuth) {
@@ -24,18 +26,16 @@ export class SummaryPage {
 	ionViewDidLoad() {
 		
 		this.afAuth.authState.subscribe((user: firebase.User) => {
-			var userId = user.uid;
-			var dataLoc = "user/"+userId+"/report";
+			var userId=user.uid;
+			var dataLoc="user/"+userId+"/report";
 			this.temp = this.afd.object(dataLoc).valueChanges().map(j =>{
-				var Months = [];
-				var name="Date";
-				console.log(j);
 				var arr = [];
 				var data_arr = [];
-				for(var k=1; k<j.length; k++){
+				for(var k=1; k<Object.keys(j).length; k++){
 					try{
 						arr.push(j[k].date);
 						data_arr.push(j[k].level);
+						k++;
 					}
 					catch(error){
 						break;
@@ -48,6 +48,85 @@ export class SummaryPage {
 					type: 'line',
 					data: {
 						labels: arr,
+						datasets: [
+						{
+							label: "Contamination Level",
+							display:false,
+							fill: false,
+							lineTension: 0.1,
+							backgroundColor: "rgba(75,192,192,0.4)",
+							borderColor: "rgba(75,192,192,1)",
+							borderCapStyle: 'butt',
+							borderDash: [],
+							borderDashOffset: 0.0,
+							borderJoinStyle: 'miter',
+							pointBorderColor: "rgba(75,192,192,1)",
+							pointBackgroundColor: "#fff",
+							pointBorderWidth: 1,
+							pointHoverRadius: 5,
+							pointHoverBackgroundColor: "rgba(75,192,192,1)",
+							pointHoverBorderColor: "rgba(220,220,220,1)",
+							pointHoverBorderWidth: 2,
+							pointRadius: 1,
+							pointHitRadius: 10,
+							data: data_arr,
+							spanGaps: false,
+						}
+						]
+
+					},
+					options: {
+						scales: {
+							yAxes: [{
+								ticks: {
+									beginAtZero: true
+								},
+								scaleLabel: {
+									display: true,
+									labelString: 'Contamination Level',
+									fontColor : '#FF0000',
+									fontSize:10
+								},
+								stacked: true
+							}],
+							xAxes: [{
+								scaleLabel: {
+									display: true,
+									labelString: 'Date',
+									fontColor: '#FF0000',
+								}
+							}]
+						}
+					}
+				});
+				
+
+				var year = new Date().getFullYear();
+				var monthData = [0,0,0,0,0,0,0,0,0,0,0,0];
+				var monthAmt = [0,0,0,0,0,0,0,0,0,0,0,0];
+				for(var k=1; k<Object.keys(j).length; k++){
+					if((j[k].date.split("/"))[2]==year){
+						monthData[parseInt((j[k].date.split("/"))[1])-1] += j[k].level;
+						monthAmt[parseInt((j[k].date.split("/"))[1])-1]++;
+					}
+				}
+
+				for(var i in monthData){
+					if(monthAmt[i]!=0)
+						monthData[i]=monthData[i]/monthAmt[i];
+					else
+						monthData[i]=0;
+				}
+
+				console.log(monthData);
+				console.log(monthAmt);
+
+				var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+				this.barChart = new Chart(this.barCanvas.nativeElement, {
+					type: 'bar',
+					data: {
+						labels: months,
 						datasets: [
 						{
 							display:false,
@@ -68,7 +147,7 @@ export class SummaryPage {
 							pointHoverBorderWidth: 2,
 							pointRadius: 1,
 							pointHitRadius: 10,
-							data: data_arr,
+							data: monthData,
 							spanGaps: false,
 						}
 						]

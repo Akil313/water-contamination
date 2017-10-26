@@ -53,7 +53,7 @@ export class NewPage {
 	/*for(var m=0;m<1000;m++){
 		console.log(m);
 	}*/
-    console.log('ionViewDidLoad NewPage');
+    //console.log('ionViewDidLoad NewPage');
 	//.navCtrl.setRoot('EmployeePage');
   }
 

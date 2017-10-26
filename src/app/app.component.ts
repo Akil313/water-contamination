@@ -21,32 +21,28 @@ export class MyApp {
 
   constructor(platform: Platform, afAuth: AngularFireAuth, private splashScreen: SplashScreen,public afd: AngularFireDatabase, 
     private statusBar: StatusBar) {
-    const authObserver = afAuth.authState.subscribe( user => {
+    afAuth.authState.subscribe( user => {
       console.log(user);
       if (user) {
         var userId = user.uid;
         var userLoc = "user/"+userId;
-        this.meh = this.afd.list(userLoc).valueChanges();
         this.meh = this.afd.list(userLoc).valueChanges().map(p =>{
           console.log(p);
           if(p[0] == true){
             globalVar=true;
             this.rootPage = EmployeePage;
-            authObserver.unsubscribe();
           }
           else if(p[0] == false){
             this.rootPage = CustomerPage;
-            authObserver.unsubscribe();
           }
           return p;
         });
       }
       else {
         this.rootPage = 'LoginPage';
-        authObserver.unsubscribe();
       }
     });
-    console.log(this.globalVar,"it works?");
+    console.log(globalVar,"it works?");
 
     platform.ready().then(() => {
     // Okay, so the platform is ready and our plugins are available.

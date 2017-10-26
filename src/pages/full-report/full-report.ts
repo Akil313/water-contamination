@@ -58,7 +58,6 @@ export class FullReportPage {
 		this.afAuth.authState.subscribe((user: firebase.User) => {
 			var userId = user.uid;
 	        var dataLoc = "user/"+userId+"/report";
-			this.temp = this.afd.list(dataLoc).valueChanges();
 			this.temp = this.afd.list(dataLoc).valueChanges().map(p =>{
 				return p.reverse();
 			});

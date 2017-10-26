@@ -9,11 +9,20 @@
 <ion-content>
     <ion-card>
       <ion-card-header>
-        Line Chart
+        Contamination Level (All-time)
       </ion-card-header>
       <ion-card-content>
 	  <span *ngFor="let m of temp| async"></span>
         <canvas #lineCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-header>
+        Monthly Average (Current Year)
+      </ion-card-header>
+      <ion-card-content>
+    <span *ngFor="let m of temp| async"></span>
+        <canvas #barCanvas></canvas>
       </ion-card-content>
     </ion-card>
 </ion-content>
