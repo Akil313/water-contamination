@@ -24,29 +24,20 @@ export class MyApp {
     const authObserver = afAuth.authState.subscribe( user => {
       console.log(user);
       if (user) {
-        var userId=user.uid;
-        var userLoc="Users/"+userId;
-        console.log(userLoc);
+        var userId = user.uid;
+        var userLoc = "user/"+userId;
         this.meh = this.afd.list(userLoc).valueChanges();
         this.meh = this.afd.list(userLoc).valueChanges().map(p =>{
-          console.log(p[2], "email?");
-          if(p[1] == true){
+          console.log(p);
+          if(p[0] == true){
             globalVar=true;
             this.rootPage = EmployeePage;
             authObserver.unsubscribe();
           }
-          else if(p[1] == false){
+          else if(p[0] == false){
             this.rootPage = CustomerPage;
             authObserver.unsubscribe();
           }
-          console.log(globalVar,"global");
-          console.log(p);
-          /*if(p[1]== true){
-          console.log("YESSSSSSSSSSS!");
-          this.navCtrl.setRoot('EmployeePage');
-          }else{
-          this.navCtrl.setRoot('CustomerPage');
-          }*/
           return p;
         });
       }
@@ -55,12 +46,13 @@ export class MyApp {
         authObserver.unsubscribe();
       }
     });
-    console.log(globalVar,"it works?");
+    console.log(this.globalVar,"it works?");
+
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
-    });
-  }
+    // Okay, so the platform is ready and our plugins are available.
+    // Here you can do any higher level native things you might need.
+    statusBar.styleDefault();
+    splashScreen.hide();
+  });
+}
 }

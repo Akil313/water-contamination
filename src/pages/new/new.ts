@@ -31,29 +31,14 @@ export class NewPage {
 
   ionViewDidLoad() {
 	this.afAuth.authState.subscribe((user: firebase.User) => {
-	var temp1 = user.email.toString();
-		var email="";
-		var i;
-		for(i of temp1){
-			if(i == "."){
-				break;
-			}else{
-				email+=i;
-			}
-		}
-		var str="Users/";
-		this.meh = this.afd.list(str+email).valueChanges();
-		this.meh = this.afd.list(str+email).valueChanges().map(p =>{
-		var name="name:";
-		var admin = "admin";
-		console.log(p[2], "email?");
-		for(var i=0;i<p.length;i++){
-			if((p[2] == email) && (p[1] == true)){
-				this.navCtrl.setRoot('EmployeePage');
-			}else if((p[2] == email) && (p[1] == false)){
-				this.navCtrl.setRoot('CustomerPage');
-				
-			}
+		var userId = user.uid;
+        var userLoc = "user/"+userId;
+        this.meh = this.afd.list(userLoc).valueChanges();
+        this.meh = this.afd.list(userLoc).valueChanges().map(p =>{
+		if(p[0] == true){
+			this.navCtrl.setRoot('EmployeePage');
+		}else if(p[0] == false){
+			this.navCtrl.setRoot('CustomerPage');
 		}
 		console.log(p);
 		/*if(p[1]== true){
