@@ -1,12 +1,19 @@
 <ion-header>
-
   <ion-navbar>
-    <ion-title>Summary</ion-title>
+    <ion-title>
+      Summary
+    </ion-title>
   </ion-navbar>
-  
 </ion-header>
+ 
 <ion-content>
-  <ion-list>
-  </ion-list>
+    <ion-card>
+      <ion-card-header>
+        Line Chart
+      </ion-card-header>
+      <ion-card-content>
+	  <span *ngFor="let m of temp| async"></span>
+        <canvas #lineCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
 </ion-content>
-

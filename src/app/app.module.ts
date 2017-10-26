@@ -7,6 +7,9 @@ import { MyApp } from './app.component';
 import { SummaryPage } from '../pages/summary/summary';
 import { MapPage } from '../pages/map/map';
 import { EmployeePage } from '../pages/employee/employee';
+import { NewPage } from '../pages/new/new';
+import { QrscannerPage } from '../pages/qrscanner/qrscanner';
+import { NewPageModule } from '../pages/new/new.module';
 import { CustomerPage } from '../pages/customer/customer';
 import { EmployeeModule } from '../pages/employee/employee.module';
 import { CustomerModule } from '../pages/customer/customer.module';
@@ -23,6 +26,9 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { HttpModule } from '@angular/http';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { FirebaseProvider } from './../providers/firebase/firebase';
+import * as firebase from 'firebase';
+import { Chart } from 'chart.js';
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 
 
 
@@ -31,7 +37,8 @@ export const firebaseConfig = {
   apiKey: "AIzaSyDI5HECL01D_Gg8V3_CGbHmmZd9OiOxWIE",
   authDomain: "water-contamination.firebaseapp.com",
   databaseURL: "https://water-contamination.firebaseio.com/",
-  storageBucket: "",
+  storageBucket: "water-contamination",
+  projectId: "test-bb832",
   messagingSenderId: "886793828530"
 };
 @NgModule({
@@ -40,6 +47,7 @@ export const firebaseConfig = {
     SummaryPage,
     MapPage,
 	FullReportPage,
+	QrscannerPage,
 	NavigationBasicPage,
 	NavigationDetailsPage,
   ],
@@ -51,6 +59,7 @@ export const firebaseConfig = {
 	AngularFireDatabaseModule,
 	AngularFireAuthModule,
 	EmployeeModule,
+	NewPageModule,
 	CustomerModule,
 	LoginPageModule
   ],
@@ -59,6 +68,8 @@ export const firebaseConfig = {
     MyApp,
     SummaryPage,
 	EmployeePage,
+	NewPage,
+	QrscannerPage,
 	CustomerPage,
 	LoginPage,
     MapPage,
@@ -72,7 +83,8 @@ export const firebaseConfig = {
     Geolocation,
 	GoogleMaps,
 	AuthProvider,
-    FirebaseProvider
+    FirebaseProvider,
+	QRScanner, 
   ]
 })
 export class AppModule {}

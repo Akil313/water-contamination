@@ -8,7 +8,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth';
 import { EmailValidator } from '../../validators/email';
-import { EmployeePage } from '../../pages/employee/employee';
+import { NewPage } from '../../pages/new/new';
 
 @IonicPage()
 @Component({
@@ -36,8 +36,7 @@ export class LoginPage {
       } else {
         this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password)
         .then( authData => {
-          this.navCtrl.setRoot('EmployeePage');
-		  console.log(authData);
+          this.navCtrl.setRoot('NewPage');
         }, error => {
           this.loading.dismiss().then( () => {
             let alert = this.alertCtrl.create({
