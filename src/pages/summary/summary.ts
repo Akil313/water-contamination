@@ -48,7 +48,7 @@ export class SummaryPage {
 
 					type: 'line',
 					data: {
-						labels: ["%", "Date"],
+						labels: arr,
 						datasets: [
 						{
 							label: "Contamination Values",
