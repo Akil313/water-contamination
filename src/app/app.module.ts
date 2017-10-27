@@ -7,7 +7,6 @@ import { MyApp } from './app.component';
 import { SummaryPage } from '../pages/summary/summary';
 import { MapPage } from '../pages/map/map';
 import { EmployeePage } from '../pages/employee/employee';
-import { UsersPage } from '../pages/users/users';
 import { NewPage } from '../pages/new/new';
 import { QrscannerPage } from '../pages/qrscanner/qrscanner';
 import { NewPageModule } from '../pages/new/new.module';
@@ -29,7 +28,12 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { FirebaseProvider } from './../providers/firebase/firebase';
 import * as firebase from 'firebase';
 import { Chart } from 'chart.js';
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
+import { Camera } from '@ionic-native/camera';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
+
+
 
 
 
@@ -47,7 +51,6 @@ export const firebaseConfig = {
     MyApp,
     SummaryPage,
     MapPage,
-    UsersPage,
 	FullReportPage,
 	QrscannerPage,
 	NavigationBasicPage,
@@ -55,6 +58,7 @@ export const firebaseConfig = {
   ],
   imports: [
     BrowserModule,
+    NgxQRCodeModule,
 	IonicModule.forRoot(MyApp),
 	AngularFireModule.initializeApp(firebaseConfig),
 	AngularFirestoreModule.enablePersistence(),
@@ -67,19 +71,20 @@ export const firebaseConfig = {
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-  MyApp,
-  SummaryPage,
-  UsersPage,
+    MyApp,
+    SummaryPage,
 	EmployeePage,
 	NewPage,
 	QrscannerPage,
 	CustomerPage,
 	LoginPage,
-  MapPage,
+    MapPage,
 	NavigationBasicPage,
-  NavigationDetailsPage,
+    NavigationDetailsPage,
   ],
   providers: [
+    Camera,
+    BarcodeScanner,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
@@ -87,7 +92,7 @@ export const firebaseConfig = {
 	GoogleMaps,
 	AuthProvider,
     FirebaseProvider,
-	QRScanner, 
+    AndroidPermissions,
   ]
 })
 export class AppModule {}
