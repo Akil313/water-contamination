@@ -25,4 +25,13 @@
         <canvas #barCanvas></canvas>
       </ion-card-content>
     </ion-card>
+    <ion-card>
+      <ion-card-header>
+        Highest Contamination (By Device)
+      </ion-card-header>
+      <ion-card-content>
+    <span *ngFor="let m of temp| async"></span>
+        <canvas #doughnutCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
 </ion-content>

@@ -17,11 +17,12 @@ import firebase from 'firebase/app';
 })
 
 export class NavigationDetailsPage {
-
+	public thing;
   constructor(params: NavParams) {
+  	 this.thing= params.data;
   }
   ionViewDidLoad(){
-	console.log("navigation");
+	console.log("landed", this.thing);
   }
 }
 
@@ -37,7 +38,7 @@ export class NavigationDetailsPage {
 		<ion-content>
   			<ion-list>
       			<span *ngFor="let k of temp| async">
-	  				<button ion-item block  (click)="openNavDetailsPage(item)" icon-start style="text-align:center;">
+	  				<button ion-item block  (click)="openNavDetailsPage(k)" icon-start style="text-align:center;">
 	  					<p>{{ k.date }}</p>
       					<div style="font-size: 14px">
         					<h2>Location: <strong>{{ k.location }}</strong></h2>
@@ -67,7 +68,7 @@ export class FullReportPage {
 		//bks[1] = afd.list('/Date');
 		//console.log(bks[1]);
 
-	openNavDetailsPage() {
-		this.nav.push(NavigationDetailsPage	);
+	openNavDetailsPage(data:any) {
+		this.nav.push(NavigationDetailsPage, data);
 	}
 }

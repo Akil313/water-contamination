@@ -36,10 +36,11 @@ export class NavigationDetailsPage {
 		
 		<ion-content>
   			<ion-list>
-      			<span *ngFor="let k of temp| async">
+      			<span *ngFor="let j of temp| async">
 	  				<button ion-item block  (click)="openNavDetailsPage(item)" icon-start style="text-align:center;">
-	  					<p>UserID = {{k}}</p>
-	  					<p>permission = {{temp[k]}}</p>
+	  					<p>UserID = {{j.email}}</p>
+	  					<p *ngIf=" j.admin == true">User Type = Admin</p>
+	  					<p *ngIf=" j.admin == false">User Type = Normal</p>
 	  				</button>
 	  			</span>
   			</ion-list>  
@@ -51,34 +52,21 @@ export class UsersPage {
 
 	public  temp: Observable<any>;
 
-	constructor(public navCtrl: NavController, public afd: AngularFireDatabase,public afAuth: AngularFireAuth) {
+	constructor(public nav: NavController, public afd: AngularFireDatabase,public afAuth: AngularFireAuth) {
 
 	}
 
 	ionViewDidLoad() {
 		this.afAuth.authState.subscribe((user: firebase.User) => {
-			var userId=user.uid;
-			var dataLoc="user";			
-			this.temp = this.afd.object(dataLoc).valueChanges().map(j =>{
-				var keys = Object.keys(j);
+			var dataLoc="user";
+			this.temp = this.afd.list(dataLoc).valueChanges().map(j =>{
 				console.log(j);
-				return keys;
+				return j;
 			});
 		});	
 	}
 
-/*
-	constructor(public nav: NavController, public firebaseProvider: FirebaseProvider, public afd: AngularFireDatabase,public afAuth: AngularFireAuth) {
-		this.afAuth.authState.subscribe((user: firebase.User) => {
-			var userId = user.uid;
-	        var dataLoc = "user";
-			this.temp = this.afd.list(dataLoc).valueChanges().map(p =>{
-				console.log(p);
-			});
-	  	});
-	}
-
 	openNavDetailsPage() {
 		this.nav.push(NavigationDetailsPage	);
-	}*/
+	}
 }

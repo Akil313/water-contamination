@@ -40,25 +40,9 @@ export class MapPage {
 				max=parseInt(p);
 			}
 		}
-		/*console.log(dates);
-		var maxCalc = Math.max.apply(Math, dates);
-		var maxDate = new Date(maxCalc).toJSON().slice(0, 10);
-		console.log(maxDate, device);*/
 		return datedArr[max];
 	}
-/*
-	var o = [{
-		x : 3,
-		level: 21
-	},{
-		x: 5,
-		level: 22
-	}];
-	var max = 0;
-	for(var i in o)
-		if(o[i].x > o[max].x) max = i;
-	return o[max];
-*/
+
 	loadMap() {
 		var mapData = [];
 		this.afAuth.authState.subscribe((user: firebase.User) => {
@@ -67,9 +51,10 @@ export class MapPage {
 				for(var i in j){
 					for(var n in j[i].devices){
 						var loc = new LatLng(parseFloat(j[i].devices[n].loc.split(",")[0]), parseFloat(j[i].devices[n].loc.split(",")[1]));
-						var recentLevel = this.getRecentDataset(j[i].report, j[i].devices[n].name);
-						var level = recentLevel.level;
-						mapData.push({loc, level});
+						var recent = this.getRecentDataset(j[i].report, j[i].devices[n].name);
+						var level = recent.level;
+						var date = recent.date;
+						mapData.push({loc, level, date});
 					}
 				}
 			});
@@ -111,7 +96,7 @@ export class MapPage {
 					this.map.addMarker({
 						'position': mapData[i].loc,
 						'icon': 'green',
-						'title': "Contamination Level:"+mapData[i].level,
+						'title': "Contamination Level:"+mapData[i].level+"\n"+mapData[i].date,
 						'visible': true,
 						'disableAutoPan':false
 					});

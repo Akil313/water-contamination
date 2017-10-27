@@ -7,6 +7,7 @@ import { MyApp } from './app.component';
 import { SummaryPage } from '../pages/summary/summary';
 import { MapPage } from '../pages/map/map';
 import { EmployeePage } from '../pages/employee/employee';
+import { UsersPage } from '../pages/users/users';
 import { NewPage } from '../pages/new/new';
 import { QrscannerPage } from '../pages/qrscanner/qrscanner';
 import { NewPageModule } from '../pages/new/new.module';
@@ -50,6 +51,7 @@ export const firebaseConfig = {
   declarations: [
     MyApp,
     SummaryPage,
+    UsersPage,
     MapPage,
 	FullReportPage,
 	QrscannerPage,
@@ -73,6 +75,7 @@ export const firebaseConfig = {
   entryComponents: [
     MyApp,
     SummaryPage,
+    UsersPage,
 	EmployeePage,
 	NewPage,
 	QrscannerPage,

@@ -7,7 +7,7 @@
 		<ion-content>
   			<ion-list>
       			<span *ngFor="let k of temp| async">
-	  				<button ion-item block  (click)="openNavDetailsPage(item)" icon-start style="text-align:center;">
+	  				<button ion-item block  (click)="openUsersDetailsPage(item)" icon-start style="text-align:center;">
 	  					<p>UserID = {{k}}</p>
 	  					<p>permission = {{temp[k].admin}}</p>
 	  				</button>
