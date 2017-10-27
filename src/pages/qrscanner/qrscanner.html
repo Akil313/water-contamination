@@ -11,8 +11,16 @@
   </ion-navbar>
 
 </ion-header>
-
+<span *ngFor="let m of items| async"></span>
 
 <ion-content padding>
 
+  <button ion-button full icon-left (click)="scanCode()"><ion-icon name="qr-scanner"></ion-icon>Scan Code</button>
+
+  <ion-card *ngIf="scannedCode">
+    <ion-card-content>
+      Result from Scan: {{ scannedCode }}
+    </ion-card-content>
+  </ion-card>
 </ion-content>
+
