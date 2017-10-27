@@ -12,8 +12,8 @@ import 'rxjs/add/operator/switchMap';
 import firebase from 'firebase/app';
  
 @Component({
-  selector: 'page full-report',
-  templateUrl: 'full-report.html'
+  selector: 'page users',
+  templateUrl: 'users.html'
 })
 
 export class NavigationDetailsPage {
@@ -38,13 +38,8 @@ export class NavigationDetailsPage {
   			<ion-list>
       			<span *ngFor="let k of temp| async">
 	  				<button ion-item block  (click)="openNavDetailsPage(item)" icon-start style="text-align:center;">
-	  					<p>{{ k.date }}</p>
-      					<div style="font-size: 14px">
-        					<h2>Location: <strong>{{ k.location }}</strong></h2>
-        					<h2>Contamination Level: <strong>{{ k.level }}</strong></h2>
-        					<br>
-      					</div>
-      					<p>tap for more details</p>
+	  					<p>UserID = {{k}}</p>
+	  					<p>permission = {{temp[k]}}</p>
 	  				</button>
 	  			</span>
   			</ion-list>  
@@ -52,22 +47,38 @@ export class NavigationDetailsPage {
 	`
 })
 
-export class FullReportPage {
-	public  temp: Observable<any[]>;
+export class UsersPage {
+
+	public  temp: Observable<any>;
+
+	constructor(public navCtrl: NavController, public afd: AngularFireDatabase,public afAuth: AngularFireAuth) {
+
+	}
+
+	ionViewDidLoad() {
+		this.afAuth.authState.subscribe((user: firebase.User) => {
+			var userId=user.uid;
+			var dataLoc="user";			
+			this.temp = this.afd.object(dataLoc).valueChanges().map(j =>{
+				var keys = Object.keys(j);
+				console.log(j);
+				return keys;
+			});
+		});	
+	}
+
+/*
 	constructor(public nav: NavController, public firebaseProvider: FirebaseProvider, public afd: AngularFireDatabase,public afAuth: AngularFireAuth) {
 		this.afAuth.authState.subscribe((user: firebase.User) => {
 			var userId = user.uid;
-	        var dataLoc = "user/"+userId+"/report";
+	        var dataLoc = "user";
 			this.temp = this.afd.list(dataLoc).valueChanges().map(p =>{
-				return p;
+				console.log(p);
 			});
 	  	});
 	}
-		//console.log(afd.list('/Date', ref => ref.limitToFirst(2)));
-		//bks[1] = afd.list('/Date');
-		//console.log(bks[1]);
 
 	openNavDetailsPage() {
 		this.nav.push(NavigationDetailsPage	);
-	}
+	}*/
 }

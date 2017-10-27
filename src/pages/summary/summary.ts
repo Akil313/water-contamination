@@ -28,7 +28,7 @@ export class SummaryPage {
 			var userId=user.uid;
 			var dataLoc="user/"+userId+"/report";			
 			this.temp = this.afd.object(dataLoc).valueChanges().map(j =>{
-				console.log(j);
+				console.log(typeof(j));
 				var arr = [];
 				var data_arr = [];
 				for(var k=1; k<Object.keys(j).length; k++){

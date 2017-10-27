@@ -8,7 +8,7 @@
 <ion-content>
   <ion-list>
       <span *ngFor="let k of temp| async">
-	  <button ion-item block  (click)="openNavDetailsPage(item)" icon-start style="text-align:center">
+	  <button ion-item block  (click)="openNavDetailsPage(k)" icon-start style="text-align:center">
 	  <p>{{ k.Date }}</p>
       <div style="font-size: 14px">
         <h2>Location: <strong>{{ k.Location }}</strong></h2>

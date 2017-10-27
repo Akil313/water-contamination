@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { SummaryPage } from '../summary/summary';
+import { UsersPage } from '../users/users';
 import { MapPage } from '../map/map';
 import { FullReportPage } from '../full-report/full-report';
 import { LoginPage } from '../login/login';
@@ -18,7 +18,7 @@ import firebase from 'firebase/app';
 
 export class EmployeePage {
   tab1Root = FullReportPage;
-  tab2Root = SummaryPage;
+  tab2Root = UsersPage;
   tab3Root = MapPage;
 
   constructor(private navCtrl: NavController, private auth: AuthProvider) {
