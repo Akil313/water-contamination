@@ -19,3 +19,5 @@ Download App: https://www.mediafire.com/file/ta12292ca1s9482/water-contamination
 
 
 Raspberry Pi and Sensors code in "rpi-sensors" folder.
+Within the rpi-sensors folder, run "npm install" in you CLI to install the
+dependencies for the Raspberry Pi and sensor.
