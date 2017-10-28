@@ -7,6 +7,10 @@ import {
   AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth';
+import { AngularFireDatabase, AngularFireList,AngularFireObject } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { EmployeePage } from '../employee/employee';
 import { EmailValidator } from '../../validators/email';
 
@@ -19,9 +23,12 @@ export class SignupPage {
   public signupForm:FormGroup;
   public loading:Loading;
 
+  public temp : Observable<any>;
+  public usersRef : AngularFireObject<any>;
+
   constructor(public nav: NavController, public authData: AuthProvider, 
     public formBuilder: FormBuilder, public loadingCtrl: LoadingController, 
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController, public afAuth: AngularFireAuth, public db: AngularFireDatabase) {
 
     this.signupForm = formBuilder.group({
       email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
@@ -41,6 +48,17 @@ export class SignupPage {
     } else {
       this.authData.signupUser(this.signupForm.value.email, this.signupForm.value.password)
       .then(() => {
+        this.afAuth.authState.subscribe( user => {
+          this.usersRef = this.db.object('user/'+user.uid);
+          var newUser = {
+            "admin" : false,
+            "devices" : null,
+            "email" : user.email,
+            "report" : null
+          };
+          this.usersRef.set(newUser);
+        });
+
         this.nav.setRoot(EmployeePage);
       }, (error) => {
         this.loading.dismiss().then( () => {

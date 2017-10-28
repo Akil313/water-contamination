@@ -1,0 +1,21 @@
+Water Contamination 
+
+Requirements: git, node.js, ionic, android sdk, java jdk,
+		text editor(sublime text, Visual Studio or Notepad++ recommended)
+
+
+Git Pull Project from https://github.com/kcb4rockstar/water-contamination
+
+
+Run project with ionic and download/install necessary modules.
+view ..src/app/app.module.ts to see full list of modules to get.
+
+App should run fine afterwards
+
+or
+
+Download App: https://www.mediafire.com/file/ta12292ca1s9482/water-contamination.apk
+
+
+
+Raspberry Pi and Sensors code in "rpi-sensors" folder.

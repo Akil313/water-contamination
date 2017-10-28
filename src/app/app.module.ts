@@ -33,6 +33,7 @@ import { Camera } from '@ionic-native/camera';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { Dialogs } from '@ionic-native/dialogs';
 
 
 
@@ -90,6 +91,7 @@ export const firebaseConfig = {
     BarcodeScanner,
     StatusBar,
     SplashScreen,
+    Dialogs,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Geolocation,
 	GoogleMaps,
